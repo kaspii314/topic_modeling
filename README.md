@@ -1,6 +1,6 @@
 # Topic Modeling: Latent Dirichlet Allocation vs. BERTopic
 
-Topic modeling is a Natural Language Processing (NLP) technique for discovering topics in a collection of documents, allowing you to see hidden structure in your text data. **Latent Dirichlet Allocation** (LDA), which was first presented in 2003 by David Blei, Andrew Ng and Michael I. Jordan, long reigned as the premier topic modeling method. However, **BERTopic** by Maarten Grootendorst burst on the scene in 2022, leveraging recent advancements in large language models. In today's article, we will focus less on the mathematics behind these methods and more on practical differences between LDA and BERTopic and the basics of how to make topic models.
+Topic modeling is a Natural Language Processing (NLP) technique for discovering topics in a collection of documents, allowing you to see hidden structure in your text data. **Latent Dirichlet Allocation** (LDA), which was first presented in 2003 by David Blei, Andrew Ng and Michael I. Jordan, long reigned as the premier topic modeling method. However, **BERTopic** by Maarten Grootendorst burst on the scene in 2022, leveraging recent advancements in large language models. In this sample project, we will focus less on the mathematics behind these methods and more on practical differences between LDA and BERTopic and the basics of how to make topic models.
 
 
 ## LDA vs. BERTopic Overview
@@ -33,6 +33,20 @@ Before creating our models, we review a few key NLP concepts:
 
 - **TF-IDF**: Both LDA and BERTopic topic modeling use a form of TF-IDF (term frequence-inverse document frequence). While we will not delve into the math here, know that TF-IDF measures the importance of a word to a document in a collection of documents. Suppose we have a collection of financial news articles. If we counted up all the words in each article, perhaps we find that one article mentions the word "stock" 10 times and "earnings" 5 times, while another article mentions "stock" 8 times and "tech" 5 times. Even though "stock" is the most frequent term in both articles, it provides less information about comparing the subject of each than "earnings" and "tech."
 
+## Setup
+
+This project requires `Python 3.10` and the [virtualenv](https://pypi.org/project/virtualenv/) library.
+
+Create a Python virtual environment for the project, activate it, and install requirements.
+
+```bash
+python3.10 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install setuptools wheel
+pip install -r requirements.txt
+python3.10 -m spacy download en_core_web_md
+```
 
 ## Data
 
@@ -80,18 +94,18 @@ Interestingly, our reviews are overwhelmingly negative. We will create LDA and B
 df = data[ data.Rating <= 2 ].copy()
 ```
 
+## Data Preparation
+
+In this section, we will be building out our stop words, as well as tokenizing and lemmatizing our review text. These steps are required for LDA topic modeling. However, for BERTopic, we do not lemmatize our text or remove stop words prior to feeding into the Hugging Face Sentence Transformer model. Stop words are still useful for BERTopic after clustering of our embeddings during the construction of our topic representations, so we will ultimately use the same stop word list for both models, but just at different points in the process.
+
+
+
 
 ## Latent Dirichlet Allocation
 
 Install the following libraries For LDA topic modeling: 
 
-```bash
-pip install nltk
-pip install gensim
-pip install spacy
-python -m spacy download en_core_web_sm
-pip install pyldavis
-```
+
 
 
 
@@ -101,9 +115,7 @@ pip install pyldavis
 
 Install the BERTopic model libray:
 
-```bash
-pip install bertopic
-```
+
 
 ## Further Reading & Resources
 
