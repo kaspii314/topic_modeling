@@ -1,4 +1,6 @@
-# Topic Modeling: Latent Dirichlet Allocation vs. BERTopic
+# Topic Modeling
+
+## Latent Dirichlet Allocation vs. BERTopic
 
 <img src="https://github.com/kaspii314/topic_modeling/blob/assets/assets/bertopic.png">
 
